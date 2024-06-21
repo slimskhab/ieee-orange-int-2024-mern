@@ -1,6 +1,6 @@
-# Orange Summer Challenge 2024 - MERN Stack Technical Test
+# IEEE x Orange Summer Internship 2024 - MERN Stack Technical Test
 
-Welcome to the technical test for the Orange Summer Challenge 2024! This test is designed to assess your proficiency in building a full-stack web application using the MERN stack (MongoDB, Express.js, React.js, Node.js). You have 4 hours to complete the tasks outlined below.
+Welcome to the technical test for the Orange IEEE x Orange Summer Internship 2024! This test is designed to assess your proficiency in building a full-stack web application using the MERN stack (MongoDB, Express.js, React.js, Node.js). You have 4 hours to complete the tasks outlined below.
 
 ## Prerequisites
 - Node.js and npm installed on your development machine.
@@ -39,7 +39,7 @@ Welcome to the technical test for the Orange Summer Challenge 2024! This test is
 - Fork this repository.
 - Clone your forked repository to your local machine.
 - Create a new branch named `firstname-lastname`.
-- Complete the tasks within 4 hours.
+- Complete the tasks within 3 hours.
 - Commit your changes frequently with clear commit messages.
 - **.gitignore:** Include a `.gitignore` file in the `backend` folder to exclude unnecessary files from version control.
 - **.env file:** Add a `.env` file in the `backend` folder with the MongoDB connection URL (`MONGODB_URI`).
@@ -63,4 +63,4 @@ Welcome to the technical test for the Orange Summer Challenge 2024! This test is
 - MongoDB documentation: [https://docs.mongodb.com/](https://docs.mongodb.com/)
 
 ## Time Allotment
-You have 4 hours to complete the test. Please manage your time effectively to ensure you can finish all required tasks.
+You have 3 hours to complete the test. Please manage your time effectively to ensure you can finish all required tasks.
