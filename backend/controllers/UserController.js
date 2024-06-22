@@ -108,7 +108,6 @@ const getStats=async (req, res) => {
               totalUsers
           }
       });
-      console.log(totalNotes)
   } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Server Error!" });
