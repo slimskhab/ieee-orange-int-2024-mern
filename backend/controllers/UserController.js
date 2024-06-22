@@ -1,5 +1,6 @@
 
-const Counter = require("../models/CounterModel")
+const Counter = require("../models/CounterModel");
+const Note = require("../models/NoteModel");
 const User = require("../models/UserModel")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken");
@@ -90,4 +91,27 @@ const loginUser = async (req, res) => {
   }
 
 }
-module.exports = {addUser,loginUser }
+
+
+const getStats=async (req, res) => {
+  try {
+      const { userId } = req.body;
+
+      const totalNotes = await Note.countDocuments({ userId });
+      const totalActiveNotes = await Note.countDocuments({ userId, noteStatus: 'active' });
+      const totalUsers = await User.countDocuments();
+
+      res.status(200).json({
+          stats: {
+              totalNotes,
+              totalActiveNotes,
+              totalUsers
+          }
+      });
+      console.log(totalNotes)
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Server Error!" });
+  }
+}
+module.exports = {addUser,loginUser,getStats }
