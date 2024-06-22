@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import CustomSideBar from "../../components/CustomSideBar/CustomSideBar";
 import {
   CopyOutlined,
+  DownOutlined,
   FileImageOutlined,
   FormOutlined,
   InfoCircleOutlined,
@@ -10,7 +11,16 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import "./Notes.css";
-import { Button, Card, Input, message, Modal, Statistic } from "antd";
+import {
+  Button,
+  Card,
+  Dropdown,
+  Input,
+  message,
+  Modal,
+  Space,
+  Statistic,
+} from "antd";
 import { UserData } from "./../../../utils/UserData";
 import { useNavigate } from "react-router-dom";
 import axiosRequest from "../../../utils/AxiosConfig";
@@ -71,7 +81,9 @@ function Notes() {
         setNotes((prevNotes) => prevNotes.filter((note) => note.id !== noteId));
       })
       .catch((err) => {
-        const errorMessage = err.response ? err.response.data.message : "An error occurred";
+        const errorMessage = err.response
+          ? err.response.data.message
+          : "An error occurred";
         showtoast("error", errorMessage);
       })
       .finally(() => {
@@ -96,7 +108,9 @@ function Notes() {
       })
       .catch((err) => {
         setIsModalOpen(false);
-        const errorMessage = err.response ? err.response.data.message : "An error occurred";
+        const errorMessage = err.response
+          ? err.response.data.message
+          : "An error occurred";
         showtoast("error", errorMessage);
       })
       .finally(() => {
@@ -126,16 +140,54 @@ function Notes() {
       .then((res) => {
         setIsModalOpen(false);
         showtoast("success", "Updated Note successfully");
-        setNotes((prevNotes) => prevNotes.map(note => note.id === res.data.note.id ? res.data.note : note));
+        setNotes((prevNotes) =>
+          prevNotes.map((note) =>
+            note.id === res.data.note.id ? res.data.note : note
+          )
+        );
       })
       .catch((err) => {
         setIsModalOpen(false);
-        const errorMessage = err.response ? err.response.data.message : "An error occurred";
+        const errorMessage = err.response
+          ? err.response.data.message
+          : "An error occurred";
         showtoast("error", errorMessage);
       })
       .finally(() => {
         setButtonLoading(false);
       });
+  };
+
+  const items = [
+    {
+      label: "Research Note",
+      key: "1",
+      icon: <UserOutlined />,
+    },
+    {
+      label: "Meeting Note",
+      key: "2",
+      icon: <UserOutlined />,
+    },
+    {
+      label: "Lecture Note",
+      key: "3",
+      icon: <UserOutlined />,
+    },
+    {
+      label: "Study Note",
+      key: "4",
+      icon: <UserOutlined />,
+    },
+  ];
+  const handleMenuClick = (e) => {
+    const selectedNoteType = items.find((item) => item.key === e.key)?.label;
+    setNoteType(selectedNoteType);
+  };
+
+  const menuProps = {
+    items,
+    onClick: handleMenuClick,
   };
 
   useEffect(() => {
@@ -157,18 +209,47 @@ function Notes() {
   }, []);
 
   return (
-    <div style={{ display: "flex", width: "100%", flexDirection: "row", height: "100%" }}>
+    <div
+      style={{
+        display: "flex",
+        width: "100%",
+        flexDirection: "row",
+        height: "100%",
+      }}
+    >
       <div className="drawer-button">
         <MenuOutlined onClick={() => setDrawer(!drawer)} />
       </div>
       <CustomSideBar selectedItem="notes" drawer={drawer} />
-      <div style={{ width: "80%", display: "flex", margin: 20, flexDirection: "column" }} onClick={() => setDrawer(!drawer)}>
+      <div
+        style={{
+          width: "80%",
+          display: "flex",
+          margin: 20,
+          flexDirection: "column",
+        }}
+        onClick={() => setDrawer(!drawer)}
+      >
         <div style={{ display: "flex", width: "100%", justifyContent: "end" }}>
-          <Button type="primary" icon={<PlusOutlined />} iconPosition={"end"} onClick={showModal}>
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            iconPosition={"end"}
+            onClick={showModal}
+          >
             Add Note
           </Button>
         </div>
-        <div style={{ display: "flex", gap: "20px", height: "min-content", flexWrap: "wrap", justifyContent: "space-around", width: "100%" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "20px",
+            height: "min-content",
+            flexWrap: "wrap",
+            justifyContent: "space-around",
+            width: "100%",
+          }}
+        >
           {notes && notes.length > 0 ? (
             notes.map((e, i) => (
               <NoteCard
@@ -210,22 +291,37 @@ function Notes() {
           ></TextArea>
         </div>
         <br />
-        <div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "min-content",
+          }}
+        >
           <label>Note Type:</label>
-          <Input
-            prefix={<InfoCircleOutlined />}
-            value={noteType}
-            onChange={(e) => setNoteType(e.target.value)}
-          ></Input>
+
+          <Dropdown menu={menuProps}>
+            <Button>
+              {noteType || "Select Type"} <DownOutlined />
+            </Button>
+          </Dropdown>
         </div>
-        <br />
+
         <div>
           <label>Note Image:</label>
-          <Input prefix={<FileImageOutlined />} type="file" onChange={handleFileChange}></Input>
+          <Input
+            prefix={<FileImageOutlined />}
+            type="file"
+            onChange={handleFileChange}
+          ></Input>
         </div>
         {imageUrl && (
           <div>
-            <img src={imageUrl} alt="Selected" style={{ width: "100%", marginTop: "10px" }} />
+            <img
+              src={imageUrl}
+              alt="Selected"
+              style={{ width: "100%", marginTop: "10px" }}
+            />
           </div>
         )}
       </Modal>
