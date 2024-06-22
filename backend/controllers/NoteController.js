@@ -4,7 +4,7 @@ const fs = require("fs");
 
 const addNote = async (req, res) => {
   try {
-    const { noteTitle, noteDescription,noteType } = req.body;
+    const { noteTitle, noteDescription,noteType,userId } = req.body;
     const file = req.file;
 
     if (!file) {
@@ -19,11 +19,12 @@ const addNote = async (req, res) => {
 
     const note = new Note({
       id: counter.seq,
+      userId,
       noteTitle,
       noteDescription,
       noteType,
       noteImage: file.path,
-      status: "Active",
+      noteStatus: "Active",
     });
 
     await note.save();
@@ -43,7 +44,7 @@ const addNote = async (req, res) => {
 
 const editNote = async (req, res) => {
   try {
-    const { noteId, noteTitle, noteType, noteDescription, status } = req.body;
+    const { noteId, noteTitle, noteType, noteDescription, noteStatus } = req.body;
     let file;
 
     if (req.file) {
@@ -58,7 +59,7 @@ const editNote = async (req, res) => {
       noteTitle,
       noteType,
       noteDescription,
-      status,
+      noteStatus,
     };
 
     if (file) {

@@ -5,6 +5,10 @@ const NoteSchema=mongoose.Schema({
         type:Number,
         required:true,
     },
+    userId:{
+        type:Number,
+        required:true,
+    },
     noteTitle:{
         type:String,
         required:true,
@@ -21,7 +25,7 @@ const NoteSchema=mongoose.Schema({
         type:String,
         required:true,
     },
-    status:{
+    noteStatus:{
         type:String,
         required: true
     },

@@ -6,7 +6,7 @@ const { addNote, deleteNote, editNote, getUserNote } = require("../controllers/N
 
 
 
-router.get("/",getUserNote)
+router.post("/",getUserNote)
 router.post("/add", upload.single('file'), addNote);
 router.post("/delete",deleteNote);
 router.post("/edit",upload.single('file'),editNote)
