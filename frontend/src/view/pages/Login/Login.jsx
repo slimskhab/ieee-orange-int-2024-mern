@@ -6,9 +6,9 @@ import {
   EyeInvisibleOutlined,
   EyeTwoTone,
 } from "@ant-design/icons";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Login.css"
+import axiosRequest from "../../../utils/AxiosConfig";
 function Login() {
   const [buttonLoading, setButtonLoading] = useState();
   const [email, setEmail] = useState();
@@ -18,8 +18,8 @@ function Login() {
   const navigate = useNavigate();
   const handleLoginButton = () => {
     setButtonLoading(true);
-    axios
-      .post(`${import.meta.env.VITE_BACKEND}/user/login`, {
+    axiosRequest
+      .post(`/user/login`, {
         email,
         password,
       })
