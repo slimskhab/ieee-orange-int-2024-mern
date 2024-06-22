@@ -35,6 +35,9 @@ db.once('open', () => {
 const NoteRouter = require("./routes/NoteRoutes")
 app.use("/note", NoteRouter)
 
+const UserRouter = require("./routes/UserRoutes")
+app.use("/user", UserRouter)
+
 const server = app.listen(process.env.PORT, () => {
   console.log(`server started on port ${process.env.PORT}`);
 })
